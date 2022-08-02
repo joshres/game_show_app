@@ -2,7 +2,7 @@ const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const startButton = document.querySelector('.btn_reset');
 let letters = document.getElementsByClassName('letter');
-const missed = 0;
+let missed = 0;
 
 const phrases = [
     'fun in the sun',
@@ -42,21 +42,31 @@ const phraseArray = getRandomPhrasesAsArray(phrases);
 }
 addPhraseToDisplay(phraseArray);
 
+// check if a letter is in the phrase
+function checkLetter(btn) {
+    const chkLetter = document.querySelectorAll('li');
+    let match = null;9
+    for (let i = 0; i < chkLetter.length; i++) {
+        if (btn.textContent === chkLetter[i].textContent) {
+            chkLetter[i].classList.add('show');
+            match = btn.textContent;
+        }
+    }
+    return match;
+};
+
 // listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', e => {
     if (e.target.tagName === 'BUTTON' && e.target.className != "chosen") {
         const btn = e.target;
         btn.disabled = true;
         btn.className = "chosen";
-        const letterFound = btn.textContent;
-        const found = checkLetter(letterFound);
+        const letterFound = checkLetter(btn);
+    } else if (e.target.tagName === 'BUTTON' && ){
+        const tries = document.querySelectorAll('img');
+        tries[missed].src = "images/lostHeart.png"; missed++;
     }
 });
-
-// check if a letter is in the phrase
-const checkLetter = button => {
-
-};
 
 // check if the game has been won or lost
 const checkWin = () => {
