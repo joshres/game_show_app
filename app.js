@@ -62,7 +62,7 @@ qwerty.addEventListener('click', e => {
         btn.disabled = true;
         btn.className = "chosen";
         const letterFound = checkLetter(btn);
-    } else if (e.target.tagName === 'BUTTON' && ){
+    } else if (e.target.tagName === 'BUTTON' && /*NEED OTHER CONDITION*/ ){
         const tries = document.querySelectorAll('img');
         tries[missed].src = "images/lostHeart.png"; missed++;
     }
