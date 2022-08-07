@@ -1,7 +1,7 @@
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
+const overlay = document.getElementById('overlay');
 const startButton = document.querySelector('.btn_reset');
-let letters = document.getElementsByClassName('letter');
 let missed = 0;
 
 const phrases = [
@@ -57,20 +57,44 @@ function checkLetter(btn) {
 
 // listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', e => {
+    const btn = e.target;
+    const letterFound = checkLetter(btn);
     if (e.target.tagName === 'BUTTON' && e.target.className != "chosen") {
-        const btn = e.target;
         btn.disabled = true;
         btn.className = "chosen";
-        const letterFound = checkLetter(btn);
-    } else if (e.target.tagName === 'BUTTON' && /*NEED OTHER CONDITION*/ ){
-        const tries = document.querySelectorAll('img');
+        } 
+    if (e.target.tagName === 'BUTTON' && letterFound === null) {
+        const tries = document.querySelectorAll("img");
         tries[missed].src = "images/lostHeart.png"; missed++;
     }
+    checkWin();
 });
 
 // check if the game has been won or lost
-const checkWin = () => {
+function checkWin() {
+    const letters = document.getElementsByClassName('letter');
+    const shows = document.getElementsByClassName('show');
+    const h2 = document.createElement('h2');
 
+    if (letters.length === shows.length) {
+        overlay.className = 'win';
+        overlay.style.display = 'flex';
+        startButton.textContent = "Play again?";
+        startButton.addEventListener('click', () => {
+            location.reload();
+        });
+        overlay.appendChild(h2);
+        h2.textContent = "You won!";
+    } else if (missed >= 5) {
+        overlay.className = 'lose';
+        overlay.style.display = 'flex';
+        startButton.textContent = "Try again?";
+        startButton.addEventListener('click', () => {
+            location.reload();
+        });
+        overlay.appendChild(h2);
+        h2.textContent = "Sorry, you lost.";
+    }
 };
 
 
