@@ -45,7 +45,7 @@ addPhraseToDisplay(phraseArray);
 // check if a letter is in the phrase
 function checkLetter(btn) {
     const chkLetter = document.querySelectorAll('li');
-    let match = null;9
+    let match = null;
     for (let i = 0; i < chkLetter.length; i++) {
         if (btn.textContent === chkLetter[i].textContent) {
             chkLetter[i].classList.add('show');
@@ -96,6 +96,7 @@ function checkWin() {
         h2.textContent = "Sorry, you lost.";
     }
 };
+
 
 
 
