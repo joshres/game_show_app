@@ -70,6 +70,36 @@ qwerty.addEventListener('click', e => {
     checkWin();
 });
 
+// reset the game
+function resetGame() {
+    startButton.addEventListener('click', e => {
+        const btn = e.target;
+        const li = document.querySelectorAll('li');
+        overlay.classList.remove('win');
+        overlay.classList.remove('lose');
+            if (btn.tagName === 'BUTTON' && btn.className === 'chosen') {
+                btn.classList.remove('chosen');
+                btn.disabled = false;
+                li.classList.remove('li');
+            }
+        
+        // ***** Code below not working - getting ul is null message *****/
+
+        /*phrase.innerHTML = '';
+        //const newPhrase = getRandomPhrasesAsArray(phraseArray);
+        addPhraseToDisplay(phraseArray);*/
+
+
+        const hearts = document.querySelectorAll('img');
+        for (let i = 0; i < hearts.length; i++) {
+            if (hearts[i].src = "images/lostHeart.png") {
+                hearts[i].src = "images/liveHeart.png"
+            }
+        }
+        missed = 0;
+    });
+};
+
 // check if the game has been won or lost
 function checkWin() {
     const letters = document.getElementsByClassName('letter');
@@ -80,23 +110,17 @@ function checkWin() {
         overlay.className = 'win';
         overlay.style.display = 'flex';
         startButton.textContent = "Play again?";
-        startButton.addEventListener('click', () => {
-            location.reload();
-        });
         overlay.appendChild(h2);
         h2.textContent = "You won!";
-    } else if (missed >= 5) {
+    } 
+        
+    else if (missed >= 5) {
         overlay.className = 'lose';
         overlay.style.display = 'flex';
         startButton.textContent = "Try again?";
-        startButton.addEventListener('click', () => {
-            location.reload();
-        });
         overlay.appendChild(h2);
         h2.textContent = "Sorry, you lost.";
     }
+    resetGame();
 };
-
-
-
 
