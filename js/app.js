@@ -2,6 +2,7 @@ const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const overlay = document.getElementById('overlay');
 const startButton = document.querySelector('.btn_reset');
+const tries = document.querySelectorAll("img");
 let missed = 0;
 
 const phrases = [
@@ -15,6 +16,7 @@ const phrases = [
 // listen for the start game button to be pressed
 startButton.addEventListener('click', () => {
     overlay.style.display = 'none';
+    addPhraseToDisplay(phraseArray);
 });
 
 // return a random phrase from an array
@@ -40,7 +42,6 @@ const phraseArray = getRandomPhrasesAsArray(phrases);
         }
     }
 }
-addPhraseToDisplay(phraseArray);
 
 // check if a letter is in the phrase
 function checkLetter(btn) {
@@ -64,7 +65,6 @@ qwerty.addEventListener('click', e => {
         btn.className = "chosen";
         } 
     if (e.target.tagName === 'BUTTON' && letterFound === null) {
-        const tries = document.querySelectorAll("img");
         tries[missed].src = "images/lostHeart.png"; missed++;
     }
     checkWin();
@@ -72,33 +72,36 @@ qwerty.addEventListener('click', e => {
 
 // reset the game
 function resetGame() {
-    startButton.addEventListener('click', e => {
-        const btn = e.target;
-        const li = document.querySelectorAll('li');
-        overlay.classList.remove('win');
-        overlay.classList.remove('lose');
-            if (btn.tagName === 'BUTTON' && btn.className === 'chosen') {
-                btn.classList.remove('chosen');
-                btn.disabled = false;
-                li.classList.remove('li');
-            }
-        
-        // ***** Code below not working - getting ul is null message *****/
+    missed = 0;
 
-        /*phrase.innerHTML = '';
-        //const newPhrase = getRandomPhrasesAsArray(phraseArray);
-        addPhraseToDisplay(phraseArray);*/
+    for (let i = 0; i < tries.length; i++) {
+            tries[i].src = "images/liveHeart.png";
+    }
+    
+    document.querySelector("#phrase ul").innerHTML = "";
 
-
-        const hearts = document.querySelectorAll('img');
-        for (let i = 0; i < hearts.length; i++) {
-            if (hearts[i].src = "images/lostHeart.png") {
-                hearts[i].src = "images/liveHeart.png"
-            }
-        }
-        missed = 0;
-    });
+    let buttons = document.querySelectorAll("button");
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('chosen');
+        buttons[i].disabled = false;
+    }
 };
+
+    // const btn = e.target;
+    // overlay.classList.remove('win');
+    // overlay.classList.remove('lose');
+    //     if (e.target.tagName === 'BUTTON' && e.target.className === 'chosen') {
+    //         btn.disabled = false;
+    //         btn.classList.remove('chosen');
+    //     }
+
+    // phrase.innerHTML = '';
+    // let newPhrase = getRandomPhrasesAsArray(phrases);
+    // addPhraseToDisplay(newPhrase);
+
+
+
+
 
 // check if the game has been won or lost
 function checkWin() {
@@ -112,6 +115,7 @@ function checkWin() {
         startButton.textContent = "Play again?";
         overlay.appendChild(h2);
         h2.textContent = "You won!";
+        resetGame();
     } 
         
     else if (missed >= 5) {
@@ -120,7 +124,8 @@ function checkWin() {
         startButton.textContent = "Try again?";
         overlay.appendChild(h2);
         h2.textContent = "Sorry, you lost.";
+        resetGame();
     }
-    resetGame();
+
 };
 
