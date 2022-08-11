@@ -25,7 +25,7 @@ function getRandomPhrasesAsArray(phrases) {
     return phrases[randomPhrase];
 };
 
-const phraseArray = getRandomPhrasesAsArray(phrases);
+let phraseArray = getRandomPhrasesAsArray(phrases);
 
 // adds the letters of a string to the display
  function addPhraseToDisplay(phrases) {
@@ -78,7 +78,8 @@ function resetGame() {
             tries[i].src = "images/liveHeart.png";
     }
     
-    document.querySelector("#phrase ul").innerHTML = "";
+    document.querySelector("#phrase ul").innerHTML = " ";
+    phraseArray = getRandomPhrasesAsArray(phrases);
 
     let buttons = document.querySelectorAll("button");
     for (let i = 0; i < buttons.length; i++) {
@@ -86,22 +87,6 @@ function resetGame() {
         buttons[i].disabled = false;
     }
 };
-
-    // const btn = e.target;
-    // overlay.classList.remove('win');
-    // overlay.classList.remove('lose');
-    //     if (e.target.tagName === 'BUTTON' && e.target.className === 'chosen') {
-    //         btn.disabled = false;
-    //         btn.classList.remove('chosen');
-    //     }
-
-    // phrase.innerHTML = '';
-    // let newPhrase = getRandomPhrasesAsArray(phrases);
-    // addPhraseToDisplay(newPhrase);
-
-
-
-
 
 // check if the game has been won or lost
 function checkWin() {
