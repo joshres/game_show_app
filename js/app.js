@@ -92,14 +92,13 @@ function resetGame() {
 function checkWin() {
     const letters = document.getElementsByClassName('letter');
     const shows = document.getElementsByClassName('show');
-    const h2 = document.createElement('h2');
+    const winOrLose = document.getElementsByClassName('title');
 
     if (letters.length === shows.length) {
         overlay.className = 'win';
         overlay.style.display = 'flex';
         startButton.textContent = "Play again?";
-        overlay.appendChild(h2);
-        h2.textContent = "You won!";
+        winOrLose.textContent = "You won!"
         resetGame();
     } 
         
@@ -107,8 +106,7 @@ function checkWin() {
         overlay.className = 'lose';
         overlay.style.display = 'flex';
         startButton.textContent = "Try again?";
-        overlay.appendChild(h2);
-        h2.textContent = "Sorry, you lost.";
+        winOrLose.textContent = "Sorry, you lost."
         resetGame();
     }
 
